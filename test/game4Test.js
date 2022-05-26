@@ -6,9 +6,12 @@ describe("Game4", function() {
     const game = await Game.deploy();
     await game.deployed();
 
-    // nested mappings are rough :}
+    const signer = ethers.provider.getSigner();
 
-    await game.win();
+    // nested mappings are rough :}
+    await game.write(await signer.getAddress());
+
+    await game.win(await signer.getAddress());
 
     // leave this assertion as-is
     assert(await game.isWon(), "You did not win the game");
